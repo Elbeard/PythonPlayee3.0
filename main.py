@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
-
-import self as self
 from PyQt5.QtWidgets import (QWidget, QPushButton,
                              QMainWindow, QApplication, QStatusBar)
 from PyQt5.QtGui import QIcon
@@ -27,7 +25,6 @@ class View(QMainWindow):
         self.statusBar
         self.statusBar().showMessage("Работает")
 
-
         #----------------------- Параметры главного окна ----------------------#
         self.setGeometry(80, 140, 400, 150)
         self.setWindowTitle('Питониум')
@@ -36,13 +33,13 @@ class View(QMainWindow):
         self.show()
 
 
-class Controller:
+class Controller(QWidget):
     def __init__(self):
         self.view = View()
 
-        self.view.playButton.clicked.connect()
-        self.view.stopButton.clicked.connect()
-        self.view.openButton.clicked.connect()
+        self.view.playButton.clicked.connect(self.buttonClicked)
+        self.view.stopButton.clicked.connect(self.buttonClicked)
+        self.view.openButton.clicked.connect(self.openFile)
 
     def buttonClicked(self):
         sender = self.sender()
