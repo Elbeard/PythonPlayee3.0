@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
+
+import self as self
 from PyQt5.QtWidgets import (QWidget, QPushButton,
                              QMainWindow, QApplication, QStatusBar)
 from PyQt5.QtGui import QIcon
@@ -13,19 +15,14 @@ class View(QMainWindow):
 
     def initUI(self):
         #--------------------------- Кнопки -------------------------------#
-        playButton = QPushButton("Play", self)
-        playButton.move(10, 10)
+        self.playButton = QPushButton("Play", self)
+        self.playButton.move(10, 10)
 
-        stopButton = QPushButton("Stop", self)
-        stopButton.move(110, 10)
+        self.stopButton = QPushButton("Stop", self)
+        self.stopButton.move(110, 10)
 
-        openButton = QPushButton("Open", self)
-        openButton.move(210, 10)
-
-
-        playButton.clicked.connect(mainWindow.buttonClicked)
-        stopButton.clicked.connect(mainWindow.buttonClicked)
-        openButton.clicked.connect(mainWindow.buttonClicked)
+        self.openButton = QPushButton("Open", self)
+        self.openButton.move(210, 10)
 
         self.statusBar
         self.statusBar().showMessage("Работает")
@@ -43,16 +40,20 @@ class Controller:
     def __init__(self):
         self.view = View()
 
+        self.view.playButton.clicked.connect()
+        self.view.stopButton.clicked.connect()
+        self.view.openButton.clicked.connect()
+
     def buttonClicked(self):
         sender = self.sender()
         self.view.statusBar().showMessage(sender.text() + ' was pressed')
 
     def openFile(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')[0]
-        f = open(fname, 'r')
-        with f:
-            data = f.read()
-            self.textEdit.setText(data)
+        #f = open(fname, 'r')
+        #with f:
+        #    data = f.read()
+        #    self.textEdit.setText(data)
 
 
 if __name__ == '__main__':
